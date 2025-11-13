@@ -19,10 +19,12 @@ export async function GET(request: NextRequest) {
     params.push(region);
   }
 
-  query += ` ORDER BY node, idu LIMIT 100`;
+  query += ` ORDER BY node, idu`; // Removed LIMIT
 
   const routes = db.prepare(query).all(...params);
   db.close();
+
+  console.log(`Returning ${routes.length} routes`);
 
   return NextResponse.json(routes);
 }
